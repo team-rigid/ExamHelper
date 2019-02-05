@@ -49,7 +49,7 @@
         <!-- BEGIN LOGIN -->
         <div class="content">
             <!-- BEGIN LOGIN FORM -->
-            {!! Form::open(['url' => 'foo/bar', 'class' => 'login-form', 'method'=>'post']) !!}
+            {!! Form::open(['url' => '/users', 'class' => 'login-form', 'method'=>'post']) !!}
 
                 <h3 class="form-title font-green">Sign In</h3>
                 <div class="alert alert-danger display-hide">

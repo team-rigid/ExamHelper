@@ -21,7 +21,7 @@ class CategoryController extends Controller
 
     public function getCategory()
     {
-        $allCategory=Category::select('*'))->get();
+        $allCategory=Category::select('*')->get();
         return Response::json(array('success' => TRUE, 'data' => $allCategory), 200);
     }
 

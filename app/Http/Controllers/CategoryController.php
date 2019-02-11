@@ -21,8 +21,35 @@ class CategoryController extends Controller
 
     public function getCategory()
     {
+
         $allCategory=Category::select('*')->get();
-        return Response::json(array('success' => TRUE, 'data' => $allCategory), 200);
+        $count=Category::select('*')->get()->count();
+        return Response::json(array('success' => TRUE, 'data' => ['count' => $count,'categories' => $allCategory]), 200);
+    }
+    //get questions by user selected category id
+    public function getQuestionByCategoryId(Request $request)
+    {
+
+        $getQuestions=Question::select('*')->where('id_category',$request->idCategory)->get();
+        $count=Question::select('*')->get()->count();
+        return Response::json(array('success' => TRUE, 'data' => ['count' => $count,'Questions' => $getQuestions]), 200);
+    }
+
+    //Create new category
+    public function saveCategory(Request $request)
+    {
+        //$allCategory=Category::select('*')->get();
+        $categoryModel=new Category;
+        $categoryModel->category_name=$request->categoryName;
+        $categoryModel->created_at=$request->createdAt;
+        $categoryModel->updated_at=$request->updatedAt;
+        $categoryModel->created_by=$request->createdBy;
+
+        if($categoryModel->save()){
+            return Response::json(array('success' => TRUE, 'data' => $categoryModel), 200);
+        }else{
+            return Response::json(array('success' => FALSE, 'heading' => 'Insertion Failed', 'message' => 'Category could not be created!'), 400);
+        }
     }
 
 }

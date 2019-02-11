@@ -176,6 +176,9 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Collective\Html\HtmlServiceProvider::class,
+        'Eloquence\EloquenceServiceProvider',
+        Laravel\Passport\PassportServiceProvider::class,
+
 
     ],
 

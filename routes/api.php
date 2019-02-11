@@ -18,6 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('categoryList','CategoryController@getCategory');
+Route::post('saveCategory','CategoryController@saveCategory');
+Route::get('getQuestions','CategoryController@getQuestionByCategoryId');
 Route::group(['middleware' => ['json.response']], function () {
 
 	Route::post('login', 'PassportController@login');

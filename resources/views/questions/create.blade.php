@@ -47,6 +47,10 @@
         </div>
     </div>
     <!-- END PAGE BAR -->
+    <!-- BEGIN PORTLET-->
+    @include('templates.flash')
+    <!-- END PORTLET-->
+
     <div class="row">
         <div class="col-md-12">
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -59,24 +63,49 @@
                     <div class="tools"> </div>
                 </div>
                 <div class="portlet-body">
-                    {!! Form::open(['url' => '/questions', 'method'=>'post']) !!}
+                    {!! Form::open(['url' => '/questions',  'method'=>'post']) !!}
                     <div class="form-group">
-                        {!! Form::label('name', 'Your Name') !!}
-                        {!! Form::text('name', null, ['class' => 'form-control']) !!}
+                        {!! Form::label('category_type', 'Select Category Type')  !!}
+                        {!! Form::select('id_categories', $categorytypes, Request::old('id_categories'), ['class' => 'form-control']) !!}
+                        <span class="help-block text-danger"> {{ $errors->first('id_question_type') }}</span>
                     </div>
-
                     <div class="form-group">
-                        {!! Form::label('email', 'E-mail Address') !!}
-                        {!! Form::text('email', null, ['class' => 'form-control']) !!}
+                        {!! Form::label('question_type', 'Select Question Type')  !!}
+                        {!! Form::select('id_question_type', $questionTypes, Request::old('id_question_type'), ['class' => 'form-control']) !!}
+                        <span class="help-block text-danger"> {{ $errors->first('id_question_type') }}</span>
                     </div>
-
                     <div class="form-group">
-                        {!! Form::textarea('msg', null, ['class' => 'form-control']) !!}
+                        {!! Form::label('question_name', 'Question Name')  !!}
+                        {!! Form::text("question_name", Request::old('question_name'), ['class' => 'form-control']) !!}
+                        <span class="help-block text-danger"> {{ $errors->first('question_name') }}</span>
                     </div>
-
-                    {!! Form::submit('Submit', ['class' => 'btn btn-info']) !!}
-
-                    
+                    <div class="form-group">
+                        {!! Form::label('option_1', 'Options 1')  !!}
+                        {!! Form::text("option_1", Request::old('option_1'), ['class' => 'form-control']) !!}
+                        <span class="help-block text-danger"> {{ $errors->first('option_1') }}</span>
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('option_2', 'Options 2')  !!}
+                        {!! Form::text("option_2", Request::old('option_2'), ['class' => 'form-control']) !!}
+                        <span class="help-block text-danger"> {{ $errors->first('option_2') }}</span>
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('option_3', 'Options 3')  !!}
+                        {!! Form::text("option_3", Request::old('option_3'), ['class' => 'form-control']) !!}
+                        <span class="help-block text-danger"> {{ $errors->first('option_3') }}</span>
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('option_4', 'Options 4')  !!}
+                        {!! Form::text("option_4", Request::old('option_4'), ['class' => 'form-control']) !!}
+                        <span class="help-block text-danger"> {{ $errors->first('option_4') }}</span>
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('correct_answer', 'Correct Answer')  !!}
+                        {!! Form::text("correct_answer", Request::old('correct_answer'), ['class' => 'form-control']) !!}
+                        <span class="help-block text-danger"> {{ $errors->first('correct_answer') }}</span>
+                    </div>
+                        
+                    {!! Form::submit('Submit', ['class' => 'btn btn-info pull-left']) !!}
                     {!! Form::close() !!}
                 </div>
             </div>

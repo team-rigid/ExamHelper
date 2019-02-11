@@ -22,12 +22,12 @@ Route::get('login', function () {
 Route::resource('users', 'UserController');
 Route::resource('questions', 'QuestionsController');
 
-Route::get('questionsCreate', function () {
-    return view('questions/create');
-});
-Route::post('questionsList', function () {
-    return view('questions/index');
-});
+// Route::get('questionsCreate', function () {
+//     return view('questions/create');
+// });
+// Route::post('questionsList', function () {
+//     return view('questions/index');
+// });
 
 // Route::get('questions', 'QuestionsController@create')->name('questions.create');
 // Route::post('questions', 'QuestionsController@store')->name('questions.store');

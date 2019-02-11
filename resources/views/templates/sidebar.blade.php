@@ -78,12 +78,12 @@
                 </a>
                 <ul class="sub-menu">
                     <li class="nav-item  ">
-                        <a href="questionsCreate" class="nav-link ">
+                        <a href="{{ url('questions/create') }}" class="nav-link ">
                             <span class="title">Questions Create</span>
                         </a>
                     </li>
                     <li class="nav-item  ">
-                        <a href="questionsList" class="nav-link ">
+                        <a href="{{ url('questions') }}" class="nav-link ">
                             <span class="title">Questions List</span>
                         </a>
                     </li>

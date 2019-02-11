@@ -4,8 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Category;
+use App\QuestionType;
+use App\Question;
 use DB;
 use Response;
+use Validator;
+use Redirect;
+use Session;
 
 class QuestionsController extends Controller
 {
@@ -17,7 +22,8 @@ class QuestionsController extends Controller
      */
     public function index()
     {
-        return view('questions/index');
+
+        return view('questions.index');
     }
 
     /**
@@ -27,7 +33,15 @@ class QuestionsController extends Controller
      */
     public function create()
     {
-        return view('questions.create');
+        //Get Category types
+        $categorytypes = Category::get()->pluck('category_name', 'id_categories');
+
+        //Get question types
+        $questionTypes = QuestionType::get()->pluck('type_name', 'id_question_type');
+        // echo '<pre>';
+        // print_r($types);
+        // echo '</pre>';
+        return view('questions.create', compact('categorytypes','questionTypes'));
     }
 
     /**
@@ -38,7 +52,55 @@ class QuestionsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $this->beforeFilter('csrf', array('on' => 'post'));
+
+        $rules = array(
+            'id_categories' => 'required',
+            'id_question_type' => 'required',
+            'question_name' => 'required',
+            'option_1' => 'required',
+            'option_2' => 'required',
+            'option_3' => 'required',
+            'option_4' => 'required',
+            'correct_answer' => 'required'
+        );
+
+        $messages = array(
+            'id_categories.required' => 'Please Select The Category Type!',
+            'id_question_type.required' => 'Please Select The Question Type!',
+            'question_name.required' => 'Please Enter The Question Name',
+            'option_1.required' => 'Please Enter Option 1',
+            'option_2.required' => 'Please Enter Option 2',
+            'option_3.required' => 'Please Enter Option 3',
+            'option_4.required' => 'Please Enter Option 4',
+            'correct_answer.required' => 'Please Enter Correct Answer'
+        );
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+            return Redirect::to('questions/create')
+                ->withErrors($validator)
+                ->withInput($request->all());
+        } 
+
+        $question = new Question;
+        $question->id_categories = $request->id_categories;
+        $question->id_question_type = $request->id_question_type;
+        $question->question_name = $request->question_name;
+        $question->option_1 = $request->option_1;
+        $question->option_2 = $request->option_2;
+        $question->option_3 = $request->option_3;
+        $question->option_4 = $request->option_4;
+        $question->correct_answer = $request->correct_answer;
+        if ($question->save()) {
+            Session::flash('success', "Question has been created successfully");
+            return Redirect::to('questions');
+        } else {
+            Session::flash('error', "Question could not be created");
+            return Redirect::to('questions/create');
+        }
+
     }
 
     /**

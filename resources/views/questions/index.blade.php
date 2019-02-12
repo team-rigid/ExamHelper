@@ -54,7 +54,7 @@
                 <div class="portlet-title">
                     <div class="caption font-dark">
                         <i class="icon-settings font-dark"></i>
-                        <span class="caption-subject bold uppercase">Sample Table</span>
+                        <span class="caption-subject bold uppercase">Questions</span>
                     </div>
                     <div class="tools"> </div>
                 </div>
@@ -62,42 +62,30 @@
                     <table class="table table-striped table-bordered table-hover order-column" id="sample_1">
                         <thead>
                             <tr>
-                                <th>First&nbsp;name</th>
-                                <th>Lastname</th>
-                                <th>Position</th>
-                                <th>Office</th>
-                                <th>Age</th>
-                            </tr>
+                                <th>SL</th>
+                                <th>Question Name</th>
+                                <th>Option 1</th>
+                                <th>Option 2</th>
+                                <th>Option 3</th>
+                                <th>Option 4</th>
+                                <th>Correct Answer</th>
+                                <th>Action</th>
                         </thead>
                         <tbody>
+                            @foreach($question as $value)
                             <tr>
-                                <td>Tiger</td>
-                                <td>Nixon</td>
-                                <td>System Architect</td>
-                                <td>Edinburgh</td>
-                                <td>61</td>
+                                <td>{{ $value->id_questions }}</td>
+                                <td>{{ $value->question_name }}</td>
+                                <td>{{ $value->option_1 }}</td>
+                                <td>{{ $value->option_2 }}</td>
+                                <td>{{ $value->option_3 }}</td>
+                                <td>{{ $value->option_4 }}</td>
+                                <td>{{ $value->correct_answer }}</td>
+                                <td> <a href="questions" class="btn btn-outline blue-sharp btn-xs bold uppercase"><i class="fa fa-pencil"></i> Edit</a> 
+                                     <a href="questions/value.id_questions" class="btn btn-danger btn-xs bold uppercase"><i class="fa fa-trash"></i> Delete</a>
+                                </td>
                             </tr>
-                            <tr>
-                                <td>Garrett</td>
-                                <td>Winters</td>
-                                <td>Accountant</td>
-                                <td>Tokyo</td>
-                                <td>63</td>
-                            </tr>
-                            <tr>
-                                <td>Ashton</td>
-                                <td>Cox</td>
-                                <td>Junior Technical Author</td>
-                                <td>San Francisco</td>
-                                <td>66</td>
-                            </tr>
-                            <tr>
-                                <td>Cedric</td>
-                                <td>Kelly</td>
-                                <td>Senior Javascript Developer</td>
-                                <td>Edinburgh</td>
-                                <td>22</td>
-                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

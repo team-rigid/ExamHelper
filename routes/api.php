@@ -17,9 +17,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+//For CategoryController
 Route::get('categories','CategoryController@getCategoriesList');
 Route::post('category','CategoryController@saveCategory');
 Route::post('category/questions/{idCategory}','CategoryController@getQuestionByCategoryId');
+//For QuestionController
+Route::get('questions','QuestionsController@getQuestionList');
+Route::get('exam/events','ExamController@getActiveEventList');
+
 Route::group(['middleware' => ['json.response']], function () {
 
 	Route::post('login', 'PassportController@login');

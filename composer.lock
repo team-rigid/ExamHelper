@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "23fbace8f82ad2814754be2d2204e355",
+    "content-hash": "de2eb06641025edb0bfcc68e6cdc8569",
     "packages": [
         {
             "name": "defuse/php-encryption",
@@ -3232,7 +3232,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "backendtea@gmail.com"
+                    "email": "BackEndTea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",

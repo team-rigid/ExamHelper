@@ -25,11 +25,11 @@ class CategoryController extends Controller
 
         $allCategory=Category::select('category.*')
         ->addSelect(DB::raw('IFNULL(temp_question.total_question,0) as total_question'))
-        ->leftJoin(DB::raw("(SELECT count(id_questions) as total_question, id_category FROM `questions`  GROUP BY id_category) as temp_question"), function($join)
+        ->leftJoin(DB::raw("(SELECT count(id_questions) as total_question, id_category FROM `questions`  GROUP BY id_category) as temp_question"), 
+        function($join)
         {
             $join->on('temp_question.id_category', '=', 'category.id_category');
-        })
-        ->get();
+        })->get();
 
         $count=Category::select('*')->get()->count();
         return Response::json(array('success' => TRUE, 'data' => ['count' => $count,'categories' => $allCategory]), 200);

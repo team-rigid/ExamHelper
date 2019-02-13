@@ -13,8 +13,8 @@ class Event extends Model
 	protected $table = 'events';
 	public $timestamps = false;
 
-	/*public function questions()
+	public function questionSet()
     {
-        return $this->hasMany('App\Questions', 'category_id');
-    }*/
+        return $this->hasMany('App\QuestionSet', 'id_events');
+    }
 }

@@ -13,8 +13,8 @@ class QuestionSet extends Model
 	protected $table = 'question_set';
 	public $timestamps = false;
 
-	/*public function questions()
+	public function question()
     {
-        return $this->hasMany('App\Questions', 'category_id');
-    }*/
+        return $this->belongsTo('App\Question', 'id_questions');
+    }
 }

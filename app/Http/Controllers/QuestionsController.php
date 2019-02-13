@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Category;
 use App\QuestionType;
 use App\Question;
+use App\QuestionSet;
 use DB;
 use Response;
 use Validator;
@@ -156,5 +157,28 @@ class QuestionsController extends Controller
     {
         //
     }
+
+
+    //Get question for specific events
+
+    public function getQuestionList()
+    {
+
+        
+            // $getQuestions=Question::select('*')->get();
+            // return Response::json(array('success' => TRUE, 'data' => $getQuestions), 200);
+
+
+            // $getQuestions=Question::leftJoin('question_set','question_set.id_questions','=','questions.id_questions')
+            // ->select('question_set.*','questions.*')
+            // ->get();
+            // return Response::json(array('success' => TRUE, 'data' => $getQuestions), 200);
+
+           
+    }
+
+
+  
+    
 
 }

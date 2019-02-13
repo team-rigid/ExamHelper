@@ -31,7 +31,7 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": []
+            "dont-discover": ["laravel/dusk"]
         }
     },
     "autoload": {
@@ -53,7 +53,6 @@
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "Eloquence\\EloquenceServiceProvider",
             "@php artisan package:discover --ansi"
         ],
         "post-root-package-install": [

@@ -22,7 +22,8 @@ class PassportController extends Controller
     	$validator = Validator::make($request->all(), [
             'name' => 'required|min:3',
             'email' => 'required|email|unique:users',
-            'password' => 'required|min:6'
+            'password' => 'required|min:6',
+            'phoneNo' => 'required|min:11'
         ]);
 
         if ($validator->fails()) {
@@ -32,6 +33,7 @@ class PassportController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'phone_no' => $request->phoneNo,
             'password' => Hash::make($request->password),
         ]);
  
@@ -55,6 +57,7 @@ class PassportController extends Controller
  
         if (auth()->attempt($credentials)) {
             $token = auth()->user()->createToken('TutsForWeb')->accessToken;
+            var_dump($token);exit;
             return response()->json(['token' => $token], 200);
         } else {
             return response()->json(['error' => 'UnAuthorised'], 401);

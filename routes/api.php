@@ -21,6 +21,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('categories','CategoryController@getCategoriesList');
 Route::post('category','CategoryController@saveCategory');
 Route::post('category/questions/{idCategory}','CategoryController@getQuestionByCategoryId');
+//History
+Route::post('history/practices','HistoryController@getHistoryList');
 //For QuestionController
 Route::get('questions','QuestionsController@getQuestionList');
 Route::get('exam/events','ExamController@getActiveEventList');

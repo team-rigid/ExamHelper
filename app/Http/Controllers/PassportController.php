@@ -18,12 +18,15 @@ class PassportController extends Controller
      */
     public function register(Request $request)
     {
-
+        // echo $request->idUserType;
+        // exit;
+        
     	$validator = Validator::make($request->all(), [
             'name' => 'required|min:3',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
-            'phoneNo' => 'required|min:11'
+            'phoneNo' => 'required',
+            'idUserType' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -34,12 +37,15 @@ class PassportController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'phone_no' => $request->phoneNo,
+            'id_user_type' => $request->idUserType,
             'password' => Hash::make($request->password),
         ]);
+
+       
  
         $token = $user->createToken('TutsForWeb')->accessToken;
  
-        return response()->json(['token' => $token], 200);
+        return response()->json(['message'=>'Success','token' => $token], 200);
     }
  
     /**
@@ -57,10 +63,10 @@ class PassportController extends Controller
  
         if (auth()->attempt($credentials)) {
             $token = auth()->user()->createToken('TutsForWeb')->accessToken;
-            var_dump($token);exit;
-            return response()->json(['token' => $token], 200);
+            //var_dump($token);exit;
+            return response()->json(['message'=>'Success','token' => $token], 200);
         } else {
-            return response()->json(['error' => 'UnAuthorised'], 401);
+            return response()->json(['message' => 'Invalid email or password'], 401);
         }
     }
  	

@@ -24,7 +24,7 @@ class QuestionsController extends Controller
     public function index()
     {
         // Get Questions to show on List
-        $question = Question::select('id_questions','question_name','option_1','option_2','option_3','option_4','correct_answer')->get();
+        $question = Question::select('id_questions','question_name','option_1','option_2','option_3','option_4','answer')->get();
 
         // echo '<pre>';
         // print_r($question);
@@ -70,7 +70,7 @@ class QuestionsController extends Controller
             'option_2' => 'required',
             'option_3' => 'required',
             'option_4' => 'required',
-            'correct_answer' => 'required'
+            'answer' => 'required'
         );
 
         $messages = array(
@@ -81,7 +81,7 @@ class QuestionsController extends Controller
             'option_2.required' => 'Please Enter Option 2',
             'option_3.required' => 'Please Enter Option 3',
             'option_4.required' => 'Please Enter Option 4',
-            'correct_answer.required' => 'Please Enter Correct Answer'
+            'answer.required' => 'Please Enter Correct Answer'
         );
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -100,9 +100,10 @@ class QuestionsController extends Controller
         $question->option_2 = $request->option_2;
         $question->option_3 = $request->option_3;
         $question->option_4 = $request->option_4;
-        $question->correct_answer = $request->correct_answer;
+        $question->answer = $request->answer;
         $question->created_at = date("y-m-d");
         $question->created_by = 1;
+        
         if ($question->save()) {
             Session::flash('success', "Question has been created successfully");
             return Redirect::to('questions');

@@ -49,7 +49,7 @@
         <!-- BEGIN LOGIN -->
         <div class="content">
             <!-- BEGIN LOGIN FORM -->
-            {!! Form::open(['url' => '/users', 'class' => 'login-form', 'method'=>'post']) !!}
+            {!! Form::open(['url' => '/login', 'class' => 'login-form', 'method'=>'post']) !!}
 
                 <h3 class="form-title font-green">Sign In</h3>
                 <div class="alert alert-danger display-hide">
@@ -108,7 +108,7 @@
             </form>
             <!-- END FORGOT PASSWORD FORM -->
             <!-- BEGIN REGISTRATION FORM -->
-            <form class="register-form" action="index.html" method="post">
+            {!! Form::open(['url' => '/users', 'class' => 'register-form', 'method'=>'post']) !!}
                 <h3 class="font-green">Sign Up</h3>
                 <p class="hint"> Enter your personal details below: </p>
                 <div class="form-group">
@@ -119,16 +119,8 @@
                     <label class="control-label visible-ie8 visible-ie9">Email</label>
                     <input class="form-control placeholder-no-fix" type="text" placeholder="Email" name="email" /> </div>
                 <div class="form-group">
-                    <label class="control-label visible-ie8 visible-ie9">Address</label>
-                    <input class="form-control placeholder-no-fix" type="text" placeholder="Address" name="address" /> 
-                </div>
-                <div class="form-group">
                     <label class="control-label visible-ie8 visible-ie9">phone</label>
-                    <input class="form-control placeholder-no-fix" type="text" placeholder="Address" name="address" /> 
-                </div>
-                <div class="form-group">
-                    <label class="control-label visible-ie8 visible-ie9">Address</label>
-                    <input class="form-control placeholder-no-fix" type="text" placeholder="Address" name="address" /> 
+                    <input class="form-control placeholder-no-fix" type="text" placeholder="Address" name="phone" /> 
                 </div>
                 <div class="form-group">
                     <label class="control-label visible-ie8 visible-ie9">Select User Type</label>
@@ -160,7 +152,7 @@
                     <button type="button" id="register-back-btn" class="btn green btn-outline">Back</button>
                     <button type="submit" id="register-submit-btn" class="btn btn-success uppercase pull-right">Submit</button>
                 </div>
-            </form>
+                {!! Form::close() !!}
             <!-- END REGISTRATION FORM -->
         </div>
         <div class="copyright"> 2014 © Metronic. Admin Dashboard Template. </div>

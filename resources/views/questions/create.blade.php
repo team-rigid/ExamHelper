@@ -67,7 +67,7 @@
                     <div class="form-group">
                         {!! Form::label('category_type', 'Select Category Type')  !!}
                         {!! Form::select('id_categories', $categorytypes, Request::old('id_categories'), ['class' => 'form-control']) !!}
-                        <span class="help-block text-danger"> {{ $errors->first('id_question_type') }}</span>
+                        <span class="help-block text-danger"> {{ $errors->first('id_categories') }}</span>
                     </div>
                     <div class="form-group">
                         {!! Form::label('question_type', 'Select Question Type')  !!}
@@ -100,9 +100,9 @@
                         <span class="help-block text-danger"> {{ $errors->first('option_4') }}</span>
                     </div>
                     <div class="form-group">
-                        {!! Form::label('correct_answer', 'Correct Answer')  !!}
-                        {!! Form::text("correct_answer", Request::old('correct_answer'), ['class' => 'form-control']) !!}
-                        <span class="help-block text-danger"> {{ $errors->first('correct_answer') }}</span>
+                        {!! Form::label('answer', 'Correct Answer')  !!}
+                        {!! Form::text("answer", Request::old('answer'), ['class' => 'form-control']) !!}
+                        <span class="help-block text-danger"> {{ $errors->first('answer') }}</span>
                     </div>
                         
                     {!! Form::submit('Submit', ['class' => 'btn btn-info pull-left']) !!}

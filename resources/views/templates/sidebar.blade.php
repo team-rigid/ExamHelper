@@ -89,6 +89,27 @@
                     </li>
                 </ul>
             </li>
+
+            <li class="nav-item  ">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-diamond"></i>
+                    <span class="title">Events</span>
+                    <span class="selected"></span>
+                    <span class="arrow open"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item  ">
+                        <a href="{{ url('events/create') }}" class="nav-link ">
+                            <span class="title">Create Event</span>
+                        </a>
+                    </li>
+                    <!-- <li class="nav-item  ">
+                        <a href="{{ url('questions') }}" class="nav-link ">
+                            <span class="title">Questions List</span>
+                        </a>
+                    </li> -->
+                </ul>
+            </li>
         </ul>
         <!-- END SIDEBAR MENU -->
         <!-- END SIDEBAR MENU -->

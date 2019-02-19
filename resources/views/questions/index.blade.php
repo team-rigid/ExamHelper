@@ -80,7 +80,7 @@
                                 <td>{{ $value->option_2 }}</td>
                                 <td>{{ $value->option_3 }}</td>
                                 <td>{{ $value->option_4 }}</td>
-                                <td>{{ $value->correct_answer }}</td>
+                                <td>{{ $value->answer }}</td>
                                 <td> <a href="questions" class="btn btn-outline blue-sharp btn-xs bold uppercase"><i class="fa fa-pencil"></i> Edit</a> 
                                      <a href="questions/value.id_questions" class="btn btn-danger btn-xs bold uppercase"><i class="fa fa-trash"></i> Delete</a>
                                 </td>

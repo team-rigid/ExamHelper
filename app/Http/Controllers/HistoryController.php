@@ -13,10 +13,14 @@ class HistoryController extends Controller
    function getHistoryList(Request $request)
    {
        //$historyData=DB::row('select count(id_practices_history) from ')
-       $historyData=PracticesHistory::select('*')->where('id_category', $request->idCategory)
-       ->where('id_users',$request->idUsers)
-       ->get();
-       return Response::json(array('success' => TRUE, 'data' => $historyData,'totalQuestions' => $historyData->count()), 200);
+
+
+
+       //$historyData=PracticesHistory::selectRaw('count(id_category)')->where('id_users',$request->idUsers)->groupBy("id_category")->get();
+
+       $historyData=DB::select(DB::raw('SELECT id_category,count(id_category) as totalCategory FROM `practices_history` where id_users=1 group by(id_category)'));
+       return $historyData;
+       // return Response::json(array('success' => TRUE, 'data' => $historyData,'totalQuestions' => count($historyData)), 200);
    }
 
    function saveHistory(Request $request)

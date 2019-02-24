@@ -57,7 +57,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li class="nav-item  ">
-                        <a href="usersCreate" class="nav-link ">
+                        <a href="{{ url('users/create') }}" class="nav-link ">
                             <span class="title">User Create</span>
                         </a>
                     </li>

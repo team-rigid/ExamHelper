@@ -68,7 +68,7 @@
                                 <th>Option 2</th>
                                 <th>Option 3</th>
                                 <th>Option 4</th>
-                                <th>Correct Answer</th>
+                                <th>Answer</th>
                                 <th>Action</th>
                         </thead>
                         <tbody>

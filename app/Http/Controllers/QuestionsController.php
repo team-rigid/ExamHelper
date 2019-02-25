@@ -23,7 +23,7 @@ class QuestionsController extends Controller
     public function index()
     {
         // Get Questions to show on List
-        $question = DB::table('questions')->select('id_questions','question_name','option_1','option_2','option_3','option_4','answer')->get();
+        $question = Question::select('id_questions','question_name','option_1','option_2','option_3','option_4','answer')->get();
 
         // echo '<pre>';
         // print_r($question);
@@ -102,6 +102,7 @@ class QuestionsController extends Controller
         $question->answer = $request->answer;
         $question->created_at = date("y-m-d");
         $question->created_by = 1;
+        
         if ($question->save()) {
             Session::flash('success', "Question has been created successfully");
             return Redirect::to('questions');

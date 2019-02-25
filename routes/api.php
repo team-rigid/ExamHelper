@@ -16,11 +16,15 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+//For users
+Route::get('userRole','UserTypeController@getUserRole');
 //For CategoryController
 Route::get('categories','CategoryController@getCategoriesList');
 Route::post('category','CategoryController@saveCategory');
 Route::post('category/questions/{idCategory}','CategoryController@getQuestionByCategoryId');
+//History
+Route::post('history/practices','HistoryController@getHistoryList');
+Route::post('history/practices/store','HistoryController@saveHistory');
 //For QuestionController
 Route::get('questions','QuestionsController@getQuestionList');
 Route::get('exam/events','ExamController@getActiveEventList');

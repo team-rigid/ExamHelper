@@ -21,6 +21,7 @@ Route::get('login', function () {
 
 Route::resource('users', 'UserController');
 Route::resource('questions', 'QuestionsController');
+Route::resource('events', 'EventsController');
 
 // Route::get('questionsCreate', function () {
 //     return view('questions/create');

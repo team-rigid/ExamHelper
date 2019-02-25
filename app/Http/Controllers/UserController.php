@@ -34,8 +34,58 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = array(
+            'id_categories' => 'required',
+            'id_question_type' => 'required',
+            'question_name' => 'required',
+            'option_1' => 'required',
+            'option_2' => 'required',
+            'option_3' => 'required',
+            'option_4' => 'required',
+            'answer' => 'required'
+        );
+
+        $messages = array(
+            'id_categories.required' => 'Please Select The Category Type!',
+            'id_question_type.required' => 'Please Select The Question Type!', 
+            'question_name.required' => 'Please Enter The Question Name',
+            'option_1.required' => 'Please Enter Option 1',
+            'option_2.required' => 'Please Enter Option 2',
+            'option_3.required' => 'Please Enter Option 3',
+            'option_4.required' => 'Please Enter Option 4',
+            'answer.required' => 'Please Enter Correct Answer'
+        );
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+            return Redirect::to('questions/create')
+                ->withErrors($validator)
+                ->withInput($request->all());
+        } 
+
+        $question = new Question;
+        $question->id_categories = $request->id_categories;
+        $question->id_question_type = $request->id_question_type;
+        $question->question_name = $request->question_name;
+        $question->option_1 = $request->option_1;
+        $question->option_2 = $request->option_2;
+        $question->option_3 = $request->option_3;
+        $question->option_4 = $request->option_4;
+        $question->answer = $request->answer;
+        $question->created_at = date("y-m-d");
+        $question->created_by = 1;
+        
+        if ($question->save()) {
+            Session::flash('success', "Question has been created successfully");
+            return Redirect::to('questions');
+        } else {
+            Session::flash('error', "Question could not be created");
+            return Redirect::to('questions/create');
+        }
+
     }
+    
 
     /**
      * Display the specified resource.

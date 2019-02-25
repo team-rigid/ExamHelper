@@ -24,6 +24,8 @@ Route::post('category/questions/{idCategory}','CategoryController@getQuestionByC
 //For QuestionController
 Route::get('questions','QuestionsController@getQuestionList');
 Route::get('exam/events','ExamController@getActiveEventList');
+// Event Controller
+Route::get('events/result','ExamController@getActiveEventList');
 
 Route::group(['middleware' => ['json.response']], function () {
 

@@ -29,6 +29,10 @@ Route::post('history/practices/store','HistoryController@saveHistory');
 Route::get('questions','QuestionsController@getQuestionList');
 Route::get('exam/events','ExamController@getActiveEventList');
 
+// Event Controller
+Route::post('events/results','EventsController@saveEventResults');
+
+
 Route::group(['middleware' => ['json.response']], function () {
 
 	Route::post('login', 'PassportController@login');

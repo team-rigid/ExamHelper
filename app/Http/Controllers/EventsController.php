@@ -7,6 +7,7 @@ use App\Category;
 use App\QuestionType;
 use App\Question;
 use App\QuestionSet;
+use App\Event;
 use DB;
 use Response;
 use Validator;
@@ -47,55 +48,49 @@ class EventsController extends Controller
     {
         // $this->beforeFilter('csrf', array('on' => 'post'));
 
-        // $rules = array(
-        //     'id_categories' => 'required',
-        //     'id_question_type' => 'required',
-        //     'question_name' => 'required',
-        //     'option_1' => 'required',
-        //     'option_2' => 'required',
-        //     'option_3' => 'required',
-        //     'option_4' => 'required',
-        //     'answer' => 'required'
-        // );
+        $rules = array(
+            'event_name' => 'required',
+            'start_at' => 'required',
+            'end_at' => 'required',
+            'duration' => 'required',
+            'number_of_questions' => 'required',
+            'status' => 'required'
+        );
 
-        // $messages = array(
-        //     'id_categories.required' => 'Please Select The Category Type!',
-        //     'id_question_type.required' => 'Please Select The Question Type!', 
-        //     'question_name.required' => 'Please Enter The Question Name',
-        //     'option_1.required' => 'Please Enter Option 1',
-        //     'option_2.required' => 'Please Enter Option 2',
-        //     'option_3.required' => 'Please Enter Option 3',
-        //     'option_4.required' => 'Please Enter Option 4',
-        //     'answer.required' => 'Please Enter Correct Answer'
-        // );
+        $messages = array(
+            'event_name.required' => 'Please enter event name!',
+            'start_at.required' => 'Please enter event start time!', 
+            'end_at.required' => 'Please enter event end time!',
+            'duration.required' => 'Please enter event duration!',
+            'number_of_questions.required' => 'Please enter number of questions!',
+            'status.required' => 'Please select status type!'
+        );
 
-        // $validator = Validator::make($request->all(), $rules, $messages);
+        $validator = Validator::make($request->all(), $rules, $messages);
 
-        // if ($validator->fails()) {
-        //     return Redirect::to('questions/create')
-        //         ->withErrors($validator)
-        //         ->withInput($request->all());
-        // } 
+        if ($validator->fails()) {
+            return Redirect::to('events/create')
+                ->withErrors($validator)
+                ->withInput($request->all());
+        } 
 
-        // $question = new Question;
-        // $question->id_categories = $request->id_categories;
-        // $question->id_question_type = $request->id_question_type;
-        // $question->question_name = $request->question_name;
-        // $question->option_1 = $request->option_1;
-        // $question->option_2 = $request->option_2;
-        // $question->option_3 = $request->option_3;
-        // $question->option_4 = $request->option_4;
-        // $question->answer = $request->answer;
-        // $question->created_at = date("y-m-d");
-        // $question->created_by = 1;
+        $event = new Event;
+        $event->event_name = $request->event_name;
+        $event->start_at = $request->start_at;
+        $event->end_at = $request->end_at;
+        $event->duration = $request->duration;
+        $event->number_of_questions = $request->number_of_questions;
+        $event->status = $request->status;
+        $event->created_at = date("y-m-d");
+        $event->created_by = 1;
         
-        // if ($question->save()) {
-        //     Session::flash('success', "Question has been created successfully");
-        //     return Redirect::to('questions');
-        // } else {
-        //     Session::flash('error', "Question could not be created");
-        //     return Redirect::to('questions/create');
-        // }
+        if ($event->save()) {
+            Session::flash('success', "Event has been created successfully");
+            return Redirect::to('events/create');
+        } else {
+            Session::flash('error', "event could not be created");
+            return Redirect::to('events/create');
+        }
 
     }
 

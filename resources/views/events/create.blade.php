@@ -19,32 +19,6 @@
                 <span>Page Layouts</span>
             </li>
         </ul>
-        <div class="page-toolbar">
-            <div class="btn-group pull-right">
-                <button type="button" class="btn green btn-sm btn-outline dropdown-toggle" data-toggle="dropdown"> Actions
-                    <i class="fa fa-angle-down"></i>
-                </button>
-                <ul class="dropdown-menu pull-right" role="menu">
-                    <li>
-                        <a href="#">
-                            <i class="icon-bell"></i> Action</a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="icon-shield"></i> Another action</a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="icon-user"></i> Something else here</a>
-                    </li>
-                    <li class="divider"> </li>
-                    <li>
-                        <a href="#">
-                            <i class="icon-bag"></i> Separated link</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
     </div>
     <!-- END PAGE BAR -->
     <!-- BEGIN PORTLET-->
@@ -64,7 +38,7 @@
                 </div>
                 <div class="portlet-body">
                 <div class="row">
-                     {!! Form::open(['url' => '/events',  'method'=>'post']) !!}
+                     {!! Form::open(['url' => '/events',  'method'=>'post'], ['class' => 'form-horizontal form-row-seperated']) !!}
 
                     <div class="col-md-12">
                         <div class="form-group">
@@ -94,11 +68,16 @@
                         <div class="form-group">
                             {!! htmlspecialchars_decode(Form::label('no_questions', 'No Questions <span class="required">*</span>', array('class' => 'col-md-3 control-label'))) !!}
                             <div class="col-md-9">
-                                {!! Form::text("no_questions", Request::old('no_questions'), ['class' => 'form-control input-inline input-large']) !!}
+                                {!! Form::text("number_of_questions", Request::old('no_questions'), ['class' => 'form-control input-inline input-large']) !!}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {!! htmlspecialchars_decode(Form::label('status', 'Status <span class="required">*</span>', array('class' => 'col-md-3 control-label'))) !!}
+                            <div class="col-md-4">
+                                {!! Form::select('status', array('Active' => 'Active', 'Inactive' => 'Inactive'), ['class' => 'bs-select form-control']) !!}
                             </div>
                         </div>
                     </div> 
-
                     <div class="col-md-12">
                         <div class="col-md-offset-4 col-md-4">
                             {!! Form::submit('Submit', ['class' => 'btn purple btn-outline  btn-block']) !!}

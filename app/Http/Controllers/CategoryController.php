@@ -22,7 +22,6 @@ class CategoryController extends Controller
 
     public function getCategoriesList()
     {
-
         $allCategory=Category::select('category.*')
         ->addSelect(DB::raw('IFNULL(temp_question.total_question,0) as total_question'))
         ->leftJoin(DB::raw("(SELECT count(id_questions) as total_question, id_category FROM `questions`  GROUP BY id_category) as temp_question"), 

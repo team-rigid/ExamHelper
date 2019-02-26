@@ -8,6 +8,7 @@ use App\QuestionType;
 use App\Question;
 use App\QuestionSet;
 use App\Event;
+use App\EventResult;
 use DB;
 use Response;
 use Validator;
@@ -156,6 +157,21 @@ class EventsController extends Controller
             // return Response::json(array('success' => TRUE, 'data' => $getQuestions), 200);
 
            
+    }
+    public function saveEventResults(Request $request)
+    {
+        $eventResult = new EventResult;
+        $eventResult->id_users = $request->id_users;
+        $eventResult->id_events = $request->id_events;
+        $eventResult->id_questions = $request->id_questions;
+        $eventResult->answer = $request->answer;
+        $eventResult->finished_at = $request->finished_at;
+        
+        if($eventResult->save()){
+			return Response::json(array('success' => TRUE, 'message' => 'Successfully Inserted!'), 200);
+		}else{
+			return Response::json(array('success' => FALSE, 'message' => 'Insertion Failed!'), 400);
+		}
     }
 
 

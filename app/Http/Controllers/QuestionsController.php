@@ -11,7 +11,6 @@ use DB;
 use Response;
 use Validator;
 use Redirect;
-use Session;
 
 class QuestionsController extends Controller
 {

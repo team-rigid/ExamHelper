@@ -31,6 +31,9 @@ Route::get('exam/events','ExamController@getActiveEventList');
 
 // Event Controller
 Route::post('events/results','EventsController@saveEventResults');
+Route::post('events/eventStatus','EventsController@saveEventStatus');
+Route::get('eventsList','EventsController@getEvents');
+Route::post('event/eventHistory','EventsController@getEventHistoryByEventId');
 
 
 Route::group(['middleware' => ['json.response']], function () {

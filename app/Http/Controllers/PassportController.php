@@ -25,7 +25,7 @@ class PassportController extends Controller
             'name' => 'required|min:3',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
-            'phoneNo' => 'required',
+            //'phoneNo' => 'required',
             'idUserType' => 'required'
         ]);
 

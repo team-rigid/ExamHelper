@@ -8,6 +8,7 @@ use App\QuestionType;
 use App\Question;
 use App\QuestionSet;
 use App\Event;
+use App\EventStatus;
 use App\EventResult;
 use DB;
 use Response;
@@ -173,6 +174,57 @@ class EventsController extends Controller
 			return Response::json(array('success' => FALSE, 'message' => 'Insertion Failed!'), 400);
 		}
     }
+
+    //Todo get list of events
+    public function getEvents()
+    {
+        $getData=Event::select('*')->get();
+        return Response::json(array('success' => TRUE, 'data' => $getData), 200);
+    }
+
+    //Todo store the event status in the database
+    public function saveEventStatus(Request $request)
+    {
+        $eventStatus = new EventStatus;
+        $eventStatus->id_users = $request->idUsers;
+        $eventStatus->id_events = $request->idEvents;
+        $eventStatus->correct_answer = $request->correctAnswer;
+        $eventStatus->incorrect_answer = $request->incorrectAnswer;
+        $eventStatus->finished_at = $request->finished_at;
+
+
+        if($eventStatus->save()){
+			return Response::json(array('success' => TRUE, 'message' => 'Successfully Inserted!'), 200);
+		}else{
+			return Response::json(array('success' => FALSE, 'message' => 'Insertion Failed!'), 400);
+		}
+
+
+    }
+
+    //Todo get event history from database ,which is already finished
+    public function getEventHistoryByEventId(Request $request)
+    {
+        //$historyData=DB::select(DB::raw('SELECT id_category,count(id_category) as totalCategory FROM `practices_history` where id_users=1 group by(id_category)'));
+       //$eventHistoryList=DB::select(DB::raw("SELECT * FROM `event_status`,events where event_status.id_events=1 and event_status.id_events=events.id_events ORDER BY correct_answer DESC,finished_at ASC"));
+
+    //    $eventHistoryList=DB::select(DB::raw("SELECT  event_status.*,events.*,users.name,users.email FROM `event_status`,events,users where  event_status.id_events=1 and event_status.id_events=events.id_events and
+    //    users.id=event_status.id_users
+    //    ORDER BY correct_answer DESC,finished_at ASC"));
+
+        $query= EventStatus::leftJoin('events','events.id_events','=','event_status.id_events')
+        ->leftJoin('users','users.id','=','event_status.id_users')
+        ->select('users.name','users.email','events.*','event_status.*')
+        ->where('event_status.id_events',$request->idEvents)
+        ->orderBy('event_status.correct_answer','DESC')
+        ->orderBy('event_status.finished_at','ASC')
+        ->get();
+       return Response::json(array('success' => TRUE, 'data' => $query), 200);
+    }
+
+
+
+
 
 
   

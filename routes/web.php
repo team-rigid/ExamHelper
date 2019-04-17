@@ -22,6 +22,10 @@ Route::get('login', function () {
 Route::resource('users', 'UserController');
 Route::resource('questions', 'QuestionsController');
 Route::resource('events', 'EventsController');
+Route::post('login', 'PassportController@login');
+Route::post('filter', 'QuestionsController@filter');
+
+
 
 // Route::get('questionsCreate', function () {
 //     return view('questions/create');

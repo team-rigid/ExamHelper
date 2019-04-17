@@ -11,6 +11,8 @@ use DB;
 use Response;
 use Validator;
 use Redirect;
+use Session;
+
 
 class QuestionsController extends Controller
 {
@@ -20,17 +22,34 @@ class QuestionsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Get Questions to show on List
-        $question = Question::select('id_questions','question_name','option_1','option_2','option_3','option_4','answer')->get();
+        $questionName = '';
+        $questionName = $request->question_name;
+        
+        $question = Question::leftJoin('question_type', 'question_type.id_question_type', '=', 'questions.question_type')
+        ->select('questions.*')
+        ->addSelect('question_type.type_name');
+        
+        if(!empty($questionName)){
+            $question = $question->where('question_name','LIKE',"%{$questionName}%");
+        }
+
+        $question = $question->paginate(10);
+
+        
 
         // echo '<pre>';
         // print_r($question);
         // echo '</pre>';
 
-        return view('questions.index')->with('question', $question);
+        return view('questions.index',compact('question','questionName'));
     
+    }
+
+    public function filter(Request $request){
+        $questionName = $request->question_name;
+        return Redirect::to('questions?question_name='.$questionName);
     }
 
     /**
@@ -41,12 +60,12 @@ class QuestionsController extends Controller
     public function create()
     {
         //Get Category types
-        $categorytypes = Category::get()->pluck('category_name', 'id_categories');
-
+        $categorytypes = Category::get()->pluck('category_name', 'id_category');
+       
         //Get question types
         $questionTypes = QuestionType::get()->pluck('type_name', 'id_question_type');
         // echo '<pre>';
-        // print_r($types);
+        // print_r($categorytypes);
         // echo '</pre>';
         return view('questions.create', compact('categorytypes','questionTypes'));
     }
@@ -62,7 +81,7 @@ class QuestionsController extends Controller
         // $this->beforeFilter('csrf', array('on' => 'post'));
 
         $rules = array(
-            'id_categories' => 'required',
+            'id_category' => 'required',
             'id_question_type' => 'required',
             'question_name' => 'required',
             'option_1' => 'required',
@@ -73,7 +92,7 @@ class QuestionsController extends Controller
         );
 
         $messages = array(
-            'id_categories.required' => 'Please Select The Category Type!',
+            'id_category.required' => 'Please Select The Category Type!',
             'id_question_type.required' => 'Please Select The Question Type!', 
             'question_name.required' => 'Please Enter The Question Name',
             'option_1.required' => 'Please Enter Option 1',
@@ -90,10 +109,13 @@ class QuestionsController extends Controller
                 ->withErrors($validator)
                 ->withInput($request->all());
         } 
+        // echo "<pre>";
+        // print_r($request->all());
+        // exit;
 
         $question = new Question;
-        $question->id_categories = $request->id_categories;
-        $question->id_question_type = $request->id_question_type;
+        $question->id_category = $request->id_category;
+        $question->question_type = $request->id_question_type;
         $question->question_name = $request->question_name;
         $question->option_1 = $request->option_1;
         $question->option_2 = $request->option_2;
@@ -101,13 +123,13 @@ class QuestionsController extends Controller
         $question->option_4 = $request->option_4;
         $question->answer = $request->answer;
         $question->created_at = date("y-m-d");
-        $question->created_by = 1;
+        $question->created_by = 2;
         
         if ($question->save()) {
-            Session::flash('success', "Question has been created successfully");
+            Session::flash('success', "Question has been created successfully!");
             return Redirect::to('questions');
         } else {
-            Session::flash('error', "Question could not be created");
+            Session::flash('error', "Question could not be created!");
             return Redirect::to('questions/create');
         }
 
@@ -132,7 +154,12 @@ class QuestionsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $categorytypes = Category::get()->pluck('category_name', 'id_category');
+        $questionTypes = QuestionType::get()->pluck('type_name', 'id_question_type');
+        $question = Question::find($id);
+        // echo "<pre>";
+        // print_r($question->id_questions);exit;
+        return view('questions.edit',compact('question','categorytypes','questionTypes'));
     }
 
     /**
@@ -144,7 +171,29 @@ class QuestionsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $question = Question::find($id);
+        // echo "<pre>";
+        // print_r($request->id_questions);exit;
+        $question->id_questions =  $id;
+        $question->id_category = $request->id_category;
+        $question->question_type = $request->id_question_type;
+        $question->question_name = $request->question_name;
+        $question->option_1 = $request->option_1;
+        $question->option_2 = $request->option_2;
+        $question->option_3 = $request->option_3;
+        $question->option_4 = $request->option_4;
+        $question->answer = $request->answer;
+        $question->created_at = date("y-m-d");
+        $question->created_by = 2;
+
+        if ($question->save()) {
+            echo "Done";
+            Session::flash('success', "Question has been Updated successfully!");
+            return Redirect::to('questions');
+        } else {
+            Session::flash('error', "Question could not be Updated!");
+            return Redirect::to('questions');
+        }
     }
 
     /**
@@ -155,7 +204,8 @@ class QuestionsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $question = Question::find($id)->delete();
+        return Redirect::to('questions');
     }
 
 

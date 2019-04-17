@@ -16,11 +16,17 @@ class PassportController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
+   
     public function register(Request $request)
     {
-        // echo $request->idUserType;
-        // exit;
-        
+         //Get User types
+        //  $usertypes = UserType::get()->pluck('type_name', 'id_user_type');
+        //  return view('login', $usertypes);
+
+        //  echo "<pre>";
+        //  print_r($request->phone);exit;
+        //  echo "<pre>";
+
     	$validator = Validator::make($request->all(), [
             'name' => 'required|min:3',
             'email' => 'required|email|unique:users',
@@ -36,7 +42,7 @@ class PassportController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'phone_no' => $request->phoneNo,
+            'phone_no' => $request->phone,
             'id_user_type' => $request->idUserType,
             'password' => Hash::make($request->password),
         ]);

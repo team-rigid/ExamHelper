@@ -32,11 +32,22 @@
                     <div class="tools"> </div>
                 </div>
                 <div class="portlet-body">
+                {!! Form::open(['url' => '/filter',  'method'=>'post']) !!}
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {!! Form::label('questionName', 'Question Name')  !!}
+                            {!! Form::text("question_name", $questionName, ['class' => 'form-control','id' => 'questionName']) !!}
+                        </div>
+                    </div>
+                    {!! Form::submit('Search', ['class' => 'btn btn-info pull-left']) !!}
+                {!! Form::close() !!}
+
                     <table class="table table-striped table-bordered table-hover order-column" id="sample_1">
                         <thead>
                             <tr>
                                 <th>SL</th>
                                 <th>Question Name</th>
+                                <th>Question Type</th>
                                 <th>Option 1</th>
                                 <th>Option 2</th>
                                 <th>Option 3</th>
@@ -45,22 +56,28 @@
                                 <th>Action</th>
                         </thead>
                         <tbody>
-                            @foreach($question as $value)
+                            @foreach($question as $key => $que)
                             <tr>
-                                <td>{{ $value->id_questions }}</td>
-                                <td>{{ $value->question_name }}</td>
-                                <td>{{ $value->option_1 }}</td>
-                                <td>{{ $value->option_2 }}</td>
-                                <td>{{ $value->option_3 }}</td>
-                                <td>{{ $value->option_4 }}</td>
-                                <td>{{ $value->answer }}</td>
-                                <td> <a href="questions" class="btn btn-outline blue-sharp btn-xs bold uppercase"><i class="fa fa-pencil"></i> Edit</a> 
-                                     <a href="questions/value.id_questions" class="btn btn-danger btn-xs bold uppercase"><i class="fa fa-trash"></i> Delete</a>
+                                <td>{{ $key+1}}</td>
+                                <td>{{ $que->question_name }}</td>
+                                <td>{{ $que->type_name }}</td>
+                                <td>{{ $que->option_1 }}</td>
+                                <td>{{ $que->option_2 }}</td>
+                                <td>{{ $que->option_3 }}</td>
+                                <td>{{ $que->option_4 }}</td>
+                                <td>{{ $que->answer }}</td>
+                                <td> 
+                                    <a href="{{ route('questions.edit',$que->id_questions) }}" class="btn btn-outline blue-sharp btn-xs bold uppercase"><i class="fa fa-pencil"></i> Edit</a> 
+                                    <!-- <a href="{{ route('questions.destroy',$que->id_questions) }}" class="btn btn-danger btn-xs bold uppercase"><i class="fa fa-trash"></i> Delete</a> -->
+                                    {!! Form::open(['url' => '/questions/'.$que->id_questions, 'method'=>'DELETE']) !!}
+                                        {{ Form::submit('Delete', array('class' => 'btn btn-danger btn-xs bold uppercase')) }}
+                                    {{ Form::close() }}
                                 </td>
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
+                    {{ $question->links() }}
                 </div>
             </div>
         </div>

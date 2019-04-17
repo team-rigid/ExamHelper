@@ -29,6 +29,10 @@ Route::post('history/practices/store','HistoryController@saveHistory');
 Route::get('questions','QuestionsController@getQuestionList');
 Route::get('exam/events','ExamController@getActiveEventList');
 
+//Login
+Route::post('login', 'PassportController@login');
+
+
 // Event Controller
 Route::post('events/results','EventsController@saveEventResults');
 Route::post('events/eventStatus','EventsController@saveEventStatus');
